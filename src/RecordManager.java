@@ -1,7 +1,6 @@
 import java.io.*;
 import java.util.*;
 
-
 abstract class Body implements Comparable<Body> {
     abstract double getSurfaceArea();
     abstract double getVolume();
@@ -100,13 +99,34 @@ public class RecordManager {
                 double a = Double.parseDouble(dimensions[0]);
                 double b = Double.parseDouble(dimensions[1]);
                 double c = Double.parseDouble(dimensions[2]);
-                Parallelepiped p = new Parallelepiped(a, b, c);
-                parallelepipeds.add(p);
+                if (a > 0 && b > 0 && c > 0) {
+                    Parallelepiped p = new Parallelepiped(a, b, c);
+                    parallelepipeds.add(p);
+                } else {
+                    System.out.println("Invalid dimensions found in parallelepipeds.txt. Please enter the dimensions manually:");
+                    Scanner scanner = new Scanner(System.in);
+                    System.out.print("Enter 'a' dimension: ");
+                    a = scanner.nextDouble();
+                    System.out.print("Enter 'b' dimension: ");
+                    b = scanner.nextDouble();
+                    System.out.print("Enter 'c' dimension: ");
+                    c = scanner.nextDouble();
+                    Parallelepiped p = new Parallelepiped(a, b, c);
+                    parallelepipeds.add(p);
+                }
             }
             while ((line = ballReader.readLine()) != null) {
                 double radius = Double.parseDouble(line);
-                Ball b = new Ball(radius);
-                balls.add(b);
+                if (radius > 0) {
+                    Ball b = new Ball(radius);
+                    balls.add(b);
+                } else {
+                    System.out.println("Invalid radius found in balls.txt. Please enter the radius manually:");
+                    Scanner scanner = new Scanner(System.in);
+                    radius = scanner.nextDouble();
+                    Ball b = new Ball(radius);
+                    balls.add(b);
+                }
             }
         } catch (IOException e) {
             System.out.println("Error reading file: " + e.getMessage());
